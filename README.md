@@ -3,7 +3,7 @@
 > **Secure, anonymous, and ephemeral file sharing for the modern web.**
 > *Think Google Drive, but everything self-destructs.*
 
-![GhostDrive Banner](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3)
+![GhostDrive Dashboard](./assets/banner.png)
 
 ## ❓ The Problem
 In today's digital age, sharing sensitive files often leaves a permanent digital footprint. Email attachments, cloud links, and messaging apps keep your files stored indefinitely, increasing the risk of data leaks, unauthorized access, and digital clutter. Privacy is becoming a luxury.
