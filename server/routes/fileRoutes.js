@@ -104,6 +104,36 @@ router.get('/download/:safeName', async (req, res) => {
 
         const filePath = path.join(__dirname, '../uploads', file.safeName);
 
+        if (fs.existsSync(filePath)) {
+            // Burn on Read Logic
+            if (file.burnOnRead) {
+                // Remove from DB first to prevent race conditions
+                await File.deleteOne({ _id: file._id });
+                
+                res.download(filePath, file.originalName, (err) => {
+                    if (!err) {
+                        try {
+                            // Delete physical file after successful download
+                            fs.unlinkSync(filePath);
+                            console.log(`🔥 Burned file: ${file.safeName}`);
+                        } catch (e) {
+                            console.error('Error deleting burned file:', e);
+                        }
+                    }
+                });
+            } else {
+                res.download(filePath, file.originalName);
+            }
+        } else {
+            res.status(404).json({ error: 'File not found on server' });
+        }
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 // GET /api/meta/:safeName - Check file status without download
 router.get('/meta/:safeName', async (req, res) => {
     try {
@@ -120,8 +150,9 @@ router.get('/meta/:safeName', async (req, res) => {
         res.json({
             originalName: file.originalName,
             size: file.size,
-            expiryDate: file.expiryDate
-        });
+            expiryDate: file.expiryDate,
+            hasPassword: !!file.password,
+            burnOnRead: file.burnOnRead
         });
     } catch (err) {
         res.status(500).json({ error: 'Server error' });
