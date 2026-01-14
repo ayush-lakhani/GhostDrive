@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-900 text-white font-sans antialiased selection:bg-ghost-accent/30 selection:text-white;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+@layer components {
+  .ghost-card {
+    @apply bg-dark-900/60 backdrop-blur-md border border-dark-700/50 rounded-xl p-6 shadow-2xl transition-all duration-300;
+  }
+
+  .ghost-input {
+    @apply w-full bg-dark-800/50 border border-dark-700 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:ring-2 focus:ring-ghost-accent/50 focus:border-ghost-accent/50 transition-all outline-none backdrop-blur-sm;
+  }
+
+  .ghost-btn {
+    @apply w-full bg-ghost-accent hover:bg-ghost-hover text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-ghost-accent/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .glass-panel {
+    @apply bg-white/[0.02] backdrop-blur-sm border border-white/5 rounded-xl;
+  }
+
+  .ghost-badge {
+    @apply px-2 py-0.5 rounded text-[10px] font-medium tracking-wide uppercase;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
